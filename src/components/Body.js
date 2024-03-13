@@ -1,7 +1,7 @@
 
 import RestaurantCard from "./RestaurantCard";
 import { useState, useEffect } from "react";
-import Shimmer from "./shimmer";
+import shimmer from "./shimmer";
 
 const Body = () => {
   // Local State Variable - Super powerful variable
@@ -23,18 +23,17 @@ const Body = () => {
     );
 
     const json = await data.json();
+    console.log(json);
 
     // Optional Chaining
-    setListOfRestraunt(data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
-      ?.restaurantss);
-
-    setFilteredRestaurant(data?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
-      ?.restaurants);
+     setListOfRestraunt(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    setFilteredRestaurant(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
   };
 
   return listOfRestaurants.length === 0 ? (
-    <Shimmer />
+    <shimmer />
   ) : (
+   
     <div className="body">
       <div className="filter">
         <div className="search">
@@ -66,7 +65,7 @@ const Body = () => {
           className="filter-btn"
           onClick={() => {
             const filteredList = listOfRestaurants.filter(
-              (res) => res.data.avgRating > 4
+              (res) => res.data.info.avgRating > 4
             );
             setListOfRestraunt(filteredList);
           }}
@@ -76,12 +75,11 @@ const Body = () => {
       </div>
       <div className="res-container">
         {filteredRestaurant.map((restaurant) => (
-          <RestaurantCard key={restaurant.data.id} resData={restaurant} />
+          <RestaurantCard key={restaurant.info.id} resData={restaurant} />
         ))}
       </div>
-      </div>
+    </div>
   );
 };
 
 export default Body;
-
