@@ -1,3 +1,19 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('IMG_20200516_225034.jpg');
+    /* Adjust background properties as needed */
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif; /* Example font */
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Example semi-transparent background */
+}
 
 .header {
     display: flex;
@@ -7,6 +23,7 @@
 
 .logo {
     width: 200px;
+    background-color: #f0f0f0;
 }
 
 .nav-items {

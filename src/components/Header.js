@@ -14,8 +14,8 @@ const Header = () => {
       <div className="nav-items">
         <ul>
           <li>Home</li>
-          <li>About Us</li>
-          <li>Contact Us</li>
+          <li>About</li>
+          <li>Contact</li>
           <li>Cart</li>
           <button
             className="login"
