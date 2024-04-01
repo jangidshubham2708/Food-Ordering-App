@@ -1,7 +1,9 @@
 
 import RestaurantCard from "./RestaurantCard";
 import { useState, useEffect } from "react";
-import shimmer from "./shimmer";
+import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
+
 
 const Body = () => {
   // Local State Variable - Super powerful variable
@@ -31,7 +33,7 @@ const Body = () => {
   };
 
   return listOfRestaurants.length === 0 ? (
-    <shimmer />
+    <Shimmer />
   ) : (
    
     <div className="body">
@@ -52,7 +54,7 @@ const Body = () => {
               console.log(searchText);
 
               const filteredRestaurant = listOfRestaurants.filter((res) =>
-                res.data.name.toLowerCase().includes(searchText.toLowerCase())
+                res.info.name.toLowerCase().includes(searchText.toLowerCase())
               );
 
               setFilteredRestaurant(filteredRestaurant);
@@ -65,18 +67,23 @@ const Body = () => {
           className="filter-btn"
           onClick={() => {
             const filteredList = listOfRestaurants.filter(
-              (res) => res.data.info.avgRating > 4
+              (res) => res.info.avgRating > 4.6
             );
-            setListOfRestraunt(filteredList);
+            setFilteredRestaurant(filteredList);
           }}
         >
           Top Rated Restaurants
         </button>
       </div>
       <div className="res-container">
-        {filteredRestaurant.map((restaurant) => (
-          <RestaurantCard key={restaurant.info.id} resData={restaurant} />
-        ))}
+      {filteredRestaurant.map((restaurant) => (
+      <Link
+            key={restaurant?.info.id}
+            to={"/restaurants/" + (restaurant?.info.id)}
+          >
+            <RestaurantCard resData={restaurant} />
+          </Link>
+      ))}
       </div>
     </div>
   );
