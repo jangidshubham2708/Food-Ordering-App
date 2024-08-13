@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
-import { useParams } from "react-router-dom";
+import { json, useParams } from "react-router-dom";
 import { MENU_API } from "../utils/constants";
 
 const RestaurantMenu = () => {
@@ -16,27 +16,36 @@ const RestaurantMenu = () => {
   const fetchMenu = async () => {
     const data = await fetch(MENU_API + resId);
     const json = await data.json();
-    setResInfo(json.data);s
+    setResInfo(json.data);
+
+
+console.log(json);
   };
-s
+  
+
   if (resInfo === null) return <Shimmer />;
 
-  const { name, cuisines, costForTwoMessage } =
-    resInfo?.cards[0]?.card?.card?.info;
+  
+  const {text} =
+  resInfo?.cards[0]?.card?.card;
+
+  const { cuisines, costForTwoMessage } =
+    resInfo?.cards[2]?.card?.card?.info;
 
   const { itemCards } =
-    resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
+    resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
 
   console.log(itemCards);
-  console.log(resInfo?.cards[2]?.card?.card?.info?.name);
 
-
+       
   return (
     <div className="menu">
-      <h1>{name}</h1>
+      <h1>{text}</h1>
       <p>
         {cuisines.join(", ")} - {costForTwoMessage}
       </p>
+      {/* <img src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/FOOD_CATALOG/IMAGES/CMS/2024/6/7/a05bf8ea-ee68-4fd8-be01-1ac10f940fa5_c8e1a500-cd36-4f60-a771-1e5cf22e73c4.jpg_compressed"} alt="Example" /> */}
+    
       <h2>Menu</h2>
       <ul>
         {itemCards.map((item) => (
